@@ -73,7 +73,7 @@ fi
 ui_print "Starting ⚡Ultra⚡ kernel installation..."
 ui_print "Maintainer: ⚡Ultra⚡"
 ui_print "Features:"
-ui_print "-> SukiSu"
+ui_print "-> KernelSu"
 ui_print "-> SUSFS v1.5.9 ඞ"
 ui_print "-> Wireguard Support"
 ui_print "-> Maphide LineageOS Detections"
