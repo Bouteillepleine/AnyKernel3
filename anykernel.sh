@@ -4,7 +4,7 @@
 ### AnyKernel setup
 # global properties
 properties() { '
-kernel.string=Wild Kernels by TheWildJames aka Morgan Weedman
+kernel.string=⚡Ultra⚡
 do.devicecheck=0
 do.modules=0
 do.systemless=0
@@ -40,7 +40,7 @@ case $kernel_version in
     *) ksu_supported=false ;;
 esac
 
-ui_print " " "  -> Wild Kernels Supported: $ksu_supported"
+ui_print " " "  -> ⚡Ultra⚡: $ksu_supported"
 $ksu_supported || abort "  -> Non-GKI device, abort."
 
 # boot install
