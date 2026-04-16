@@ -10,6 +10,7 @@ do.devicecheck=0
 do.modules=0
 do.systemless=0
 do.cleanup=1
+do.check_boot_version=0
 do.cleanuponabort=1
 device.name1=
 device.name2=
