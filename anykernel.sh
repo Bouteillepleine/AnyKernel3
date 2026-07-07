@@ -20,6 +20,7 @@ device.name5=
 supported.versions=
 supported.patchlevels=
 supported.vendorpatchlevels=
+keycheck.timeout=10
 '; } # end properties
 
 ### AnyKernel install
@@ -37,6 +38,7 @@ kernel_version=$(cat /proc/version | awk -F '-' '{print $1}' | awk '{print $3}')
 case $kernel_version in
     4.1*) ksu_supported=true ;;
     5.1*) ksu_supported=true ;;
+    6.12*) ksu_supported=true ;;
     6.1*) ksu_supported=true ;;
     6.6*) ksu_supported=true ;;
     *) ksu_supported=false ;;
@@ -61,11 +63,8 @@ if [ -d /data/adb/magisk ] || [ -f /sbin/.magisk ]; then
     ui_print "Volume Down: Continue Installation (At Your Own Risk)"
     ui_print "============="
 
-    key_click=""
-    while [ "$key_click" = "" ]; do
-        key_click=$(getevent -qlc 1 | awk '{ print $3 }' | grep 'KEY_VOLUME')
-        sleep 0.2
-    done
+    handle_input
+    key_click="$KEY_RESULT"
 
     case "$key_click" in
         "KEY_VOLUMEUP")
@@ -122,11 +121,8 @@ if [ -n "$MODULE_PATH" ]; then
     ui_print "Volume Down: Install Module"
     ui_print "-----------------"
 
-    key_click=""
-    while [ "$key_click" = "" ]; do
-        key_click=$(getevent -qlc 1 | awk '{ print $3 }' | grep 'KEY_VOLUME')
-        sleep 0.2
-    done
+    handle_input
+    key_click="$KEY_RESULT"
 
     case "$key_click" in
         "KEY_VOLUMEDOWN")
