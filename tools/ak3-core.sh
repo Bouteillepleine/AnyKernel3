@@ -1070,7 +1070,7 @@ find_volume_nodes() {
     for dev in /dev/input/event*; do
         [ -e "$dev" ] || continue
         local caps=""
-        caps=$(timeout 0.2 $BIN/getevent -p "$dev" 2>/dev/null)
+        caps=$(timeout 0.2 getevent -p "$dev" 2>/dev/null)
         [ $? -eq 124 ] && continue # Skip frozen nodes entirely
         if echo "$caps" | grep -qE "KEY_VOLUMEUP|KEY_VOLUMEDOWN|0072|0073"; then
             active_nodes="$active_nodes $dev"
@@ -1091,7 +1091,7 @@ handle_input() {
     for dev in $VOLUME_DEVS; do
         local node_num="${dev##*event}"
         (
-            $BIN/getevent "$dev" 2>/dev/null | while read -r r_type r_code r_val; do
+            getevent "$dev" 2>/dev/null | while read -r r_type r_code r_val; do
                 if [ "$r_type" = "0001" ] && [ "$r_val" = "00000000" ]; then
                     case "$r_code" in
                         0073|73) echo "up" > "/tmp/ak3_hit_${node_num}"; break ;;
