@@ -20,7 +20,7 @@ device.name5=
 supported.versions=
 supported.patchlevels=
 supported.vendorpatchlevels=
-keycheck.timeout=10
+keycheck.timeout=25
 '; } # end properties
 
 ### AnyKernel install
