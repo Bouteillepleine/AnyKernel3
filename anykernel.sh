@@ -89,37 +89,6 @@ ui_print "Powered By ⚡Ultra⚡"
 
 split_boot
 
-# =============
-# BBG efisp / abl partition whitelist control
-# =============
-ui_print "-----------------"
-ui_print " "
-ui_print "Are you using the efisp exploit and need to"
-ui_print "whitelist the abl and efisp partitions?"
-ui_print "-----------------"
-ui_print " "
-ui_print "Volume Up: No, keep full BBG security (default)"
-ui_print "Volume Down: Yes, whitelist abl and efisp"
-ui_print "-----------------"
-
-handle_input
-key_click="$KEY_RESULT"
-
-case "$key_click" in
-    "KEY_VOLUMEDOWN")
-        ui_print "Patching cmdline to allow abl and efisp flashing!"
-        patch_cmdline "oplusboot.secure_user_mode" "oplusboot.secure_user_mode=0"
-        ;;
-    "KEY_VOLUMEUP")
-        ui_print "Flashing the kernel as is with full BBG security!"
-        patch_cmdline "oplusboot.secure_user_mode" ""
-        ;;
-    *)
-        ui_print "No/Unknown input, keeping full BBG security"
-        patch_cmdline "oplusboot.secure_user_mode" ""
-        ;;
-esac
-
 if [ -f "split_img/ramdisk.cpio" ]; then
     unpack_ramdisk
     write_boot
