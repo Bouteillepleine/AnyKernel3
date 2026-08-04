@@ -1,5 +1,5 @@
 ### AnyKernel3 Ramdisk Mod Script
-## KernelSU / SukiSU-Ultra / ResukiSU with SuSFS
+## KernelSU / SukiSU-Ultra / ResukiSU with NMS
 ## OSMOSIS @ XDA-Developers
 
 ### AnyKernel setup
