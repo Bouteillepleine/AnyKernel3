@@ -95,3 +95,27 @@ if [ -f "split_img/ramdisk.cpio" ]; then
 else
     flash_boot
 fi
+
+# The susfs module built against THIS kernel travels inside this zip, so it can never be
+# paired with a kernel it was not compiled for. AK3 unpacks to a tmpfs that do.cleanup=1
+# removes, so hand it to storage on the way past.
+#
+# Best-effort by design. In recovery without decryption /data/media/0 is unreadable and
+# every target below fails; the kernel must still flash, so nothing here is allowed to
+# matter. update-binary runs without `set -e`, so a failing test or cp cannot abort it.
+# When this does fail, the zip itself is still on the device and the loader reads the
+# module straight out of it.
+if [ -f "$AKHOME/susfs_guard_lkm.ko" ]; then
+  susfs_placed=
+  for susfs_dir in /sdcard/Download /storage/emulated/0/Download /data/local/tmp; do
+    if [ -d "$susfs_dir" ] && cp -f "$AKHOME/susfs_guard_lkm.ko" "$susfs_dir/" 2>/dev/null; then
+      susfs_placed=$susfs_dir
+      break
+    fi
+  done
+  if [ -n "$susfs_placed" ]; then
+    ui_print " " "susfs module placed in $susfs_placed"
+  else
+    ui_print " " "susfs module left in the zip (/data not writable here)"
+  fi
+fi
